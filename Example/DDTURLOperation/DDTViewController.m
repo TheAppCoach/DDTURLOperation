@@ -7,8 +7,10 @@
 //
 
 #import "DDTViewController.h"
+#import <DDTURLDownloadOperation.h>
 
 @interface DDTViewController ()
+@property (nonatomic, strong) NSOperationQueue *queue;
 
 @end
 
@@ -17,7 +19,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    self.queue = [[NSOperationQueue alloc] init];
+    
+    NSURL *url = [NSURL URLWithString:@"http://i00.i.aliimg.com/wsphoto/v1/1299469656_1/DI2-Groupset-Fit-Carbon-TT-Frame-Matte-Black-Carbon-Road-Time-Trial-Frameset-For-Sale.jpg"];
+    
+    [self.queue addOperation:[DDTURLDownloadOperation operationWithURL:url completionHandler:^(NSURL *url, NSURLResponse *response, NSError *error) {
+        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+        assert(image);
+    }]];
+
 }
 
 - (void)didReceiveMemoryWarning
