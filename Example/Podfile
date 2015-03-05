@@ -1,0 +1,11 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'DDTURLOperation', :exclusive => true do
+  pod "DDTURLOperation", :path => "../"
+end
+
+target 'Tests', :exclusive => true do
+  pod "DDTURLOperation", :path => "../"
+
+  
+end
