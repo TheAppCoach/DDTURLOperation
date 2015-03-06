@@ -10,19 +10,13 @@
 Pod::Spec.new do |s|
   s.name             = "DDTURLOperation"
   s.version          = "0.1.0"
-  s.summary          = "A short description of DDTURLOperation."
+  s.summary          = "A collection of useful network based, NSOperations."
   s.description      = <<-DESC
-                       An optional longer description of DDTURLOperation
-
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
                        DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/DDTURLOperation"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.homepage         = "https://github.com/TheAppCoach/DDTURLOperation"
   s.license          = 'MIT'
   s.author           = { "mcBontempi" => "mcbontempi@gmail.com" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/DDTURLOperation.git", :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+  s.source           = { :git => "https://github.com/TheAppCoach/DDTURLOperation.git", :tag => s.version.to_s }
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
