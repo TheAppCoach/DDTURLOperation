@@ -58,6 +58,7 @@
 - (instancetype)initWithSession:(NSURLSession *)session URL:(NSURL *)url persistentStoreCoordinator:(NSPersistentStoreCoordinator *)persistentStoreCoordinator mainThreadContext:(NSManagedObjectContext *)mainThreadContext completionHandler:(void (^)(NSManagedObjectContext *context, NSData *data, NSURLResponse *response, NSError *error))completionHandler
 {
     if (self = [super init]) {
+        _session = session;
         _url = url;
         _persistentStoreCoordinator = persistentStoreCoordinator;
         _mainThreadContext = mainThreadContext;
