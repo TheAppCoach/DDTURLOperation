@@ -12,6 +12,11 @@ Pod::Spec.new do |s|
   s.version          = "0.1.0"
   s.summary          = "A collection of useful network based, NSOperations."
   s.description      = <<-DESC
+						The following Operations are provided
+						
+						DDTURLDownloadOperation
+						DDTURLUploadOperation
+						DDTURLDataOperation
                        DESC
   s.homepage         = "https://github.com/TheAppCoach/DDTURLOperation"
   s.license          = 'MIT'
