@@ -1,8 +1,6 @@
 #import "DDTURLCoreDataDataOperation.h"
 #import <CoreData/CoreData.h>
 
-
-
 @implementation DDTURLCoreDataDataOperation
 {
     NSPersistentStoreCoordinator *_persistentStoreCoordinator;

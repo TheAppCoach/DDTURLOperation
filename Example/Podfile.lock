@@ -1,5 +1,5 @@
 PODS:
-  - DDTURLOperation (0.1.0)
+  - DDTURLOperation (0.2.0)
 
 DEPENDENCIES:
   - DDTURLOperation (from `../`)
@@ -9,6 +9,6 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  DDTURLOperation: 681c6d57fc95e8035d736ebcb2fe0ab03ddf6803
+  DDTURLOperation: 28dcdcfd922512e7dff56d31e9f24a2e26482972
 
 COCOAPODS: 0.35.0
