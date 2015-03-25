@@ -69,8 +69,6 @@
 
 - (void)start
 {
-    //   NSLog(@"PushOperation -> start");
-    
     // Always check for cancellation before launching the task.
     if ([self isCancelled])
     {
@@ -90,21 +88,18 @@
 
 - (void)mergeChanges:(NSNotification *)notification
 {
-    //   NSLog(@"merge changes");
-    
     // Merge changes into the main context on the main thread
     [_mainThreadContext performSelectorOnMainThread:@selector(mergeChangesFromContextDidSaveNotification:)
                                          withObject:notification
                                       waitUntilDone:YES];
     
-    [self completeOperation];
 }
 
 - (void)main {
     @try {
         
         // create our own context here to work with
-        _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         [_context setUndoManager:nil];
         [_context setPersistentStoreCoordinator: _persistentStoreCoordinator];
         
@@ -116,6 +111,8 @@
         
         _task = [_session dataTaskWithURL:_url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             _completionHandler(_context, data, response, error);
+            
+            [self completeOperation];
         }];
         
         [_task resume];
