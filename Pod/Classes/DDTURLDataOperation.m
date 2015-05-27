@@ -24,7 +24,7 @@
             if (!weakSelf.isCancelled && completionHandler) {
                 completionHandler(data, response, error);
             }
-            [self completeOperation];
+            [weakSelf completeOperation];
         }];
     }
     return self;

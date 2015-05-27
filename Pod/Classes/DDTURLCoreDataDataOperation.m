@@ -109,10 +109,12 @@
                    name:NSManagedObjectContextDidSaveNotification
                  object:_context];
         
+         __weak typeof(self) weakSelf = self;
+        
         _task = [_session dataTaskWithURL:_url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             _completionHandler(_context, data, response, error);
             
-            [self completeOperation];
+            [weakSelf completeOperation];
         }];
         
         [_task resume];
