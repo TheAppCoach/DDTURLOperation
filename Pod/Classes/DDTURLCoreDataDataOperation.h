@@ -9,4 +9,4 @@
 
 + (instancetype)operationWithRequest:(NSURLRequest *)request persistentStoreCoordinator:(NSPersistentStoreCoordinator *)persistentStoreCoordinator mainThreadContext:(NSManagedObjectContext *)mainThreadContext completionHandler:(void (^)(NSManagedObjectContext *context,NSData *data, NSURLResponse *response, NSError *error))completionHandler;
 
-@end
+@end 
