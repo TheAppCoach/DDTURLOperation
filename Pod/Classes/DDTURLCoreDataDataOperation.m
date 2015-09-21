@@ -9,6 +9,8 @@
     
     NSURL *_url;
     
+    NSURLRequest *_request;
+    
     BOOL _finished;
     BOOL _executing;
     
@@ -47,6 +49,26 @@
     [self didChangeValueForKey:@"isExecuting"];
     [self didChangeValueForKey:@"isFinished"];
 }
+
++ (instancetype)operationWithRequest:(NSURLRequest *)request persistentStoreCoordinator:(NSPersistentStoreCoordinator *)persistentStoreCoordinator mainThreadContext:(NSManagedObjectContext *)mainThreadContext completionHandler:(void (^)(NSManagedObjectContext *context,NSData *data, NSURLResponse *response, NSError *error))completionHandler
+{
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    return [[[self class] alloc] initWithSession:session Request:request persistentStoreCoordinator:persistentStoreCoordinator mainThreadContext:mainThreadContext completionHandler:completionHandler];
+}
+
+- (instancetype)initWithSession:(NSURLSession *)session Request:(NSURLRequest *)request persistentStoreCoordinator:(NSPersistentStoreCoordinator *)persistentStoreCoordinator mainThreadContext:(NSManagedObjectContext *)mainThreadContext completionHandler:(void (^)(NSManagedObjectContext *context, NSData *data, NSURLResponse *response, NSError *error))completionHandler
+{
+    if (self = [super init]) {
+        _session = session;
+        _request = request;
+        _persistentStoreCoordinator = persistentStoreCoordinator;
+        _mainThreadContext = mainThreadContext;
+        _completionHandler = completionHandler;
+    }
+    return self;
+}
+
 
 + (instancetype)operationWithURL:(NSURL *)url persistentStoreCoordinator:(NSPersistentStoreCoordinator *)persistentStoreCoordinator mainThreadContext:(NSManagedObjectContext *)mainThreadContext completionHandler:(void (^)(NSManagedObjectContext *context,NSData *data, NSURLResponse *response, NSError *error))completionHandler
 {
@@ -110,12 +132,21 @@
                  object:_context];
         
          __weak typeof(self) weakSelf = self;
-        
+      
+        if (_url) {
         _task = [_session dataTaskWithURL:_url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             _completionHandler(_context, data, response, error);
             
             [weakSelf completeOperation];
         }];
+        }
+        else if (_request) {
+            _task = [_session dataTaskWithRequest:_request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                _completionHandler(_context, data, response, error);
+                
+                [weakSelf completeOperation];
+            }];
+        }
         
         [_task resume];
     }
