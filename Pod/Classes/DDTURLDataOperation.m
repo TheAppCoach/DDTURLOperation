@@ -6,6 +6,13 @@
 
 #pragma mark - public
 
++ (instancetype)operationWithRequest:(NSURLRequest *)request completionHandler:(void (^)(NSData *data, NSURLResponse *response, NSError *error))completionHandler
+{
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    return [[[self class] alloc] initWithSession:session request:request completionHandler:completionHandler];
+}
+
 + (instancetype)operationWithURL:(NSURL *)url completionHandler:(void (^)(NSData *data, NSURLResponse *response, NSError *error))completionHandler
 {
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
@@ -14,6 +21,21 @@
 }
 
 #pragma mark - private
+
+- (instancetype)initWithSession:(NSURLSession *)session request:(NSURLRequest *)request completionHandler:(void (^)(NSData *data, NSURLResponse *response, NSError *error))completionHandler
+{
+    if (self = [super init]) {
+        __weak typeof(self) weakSelf = self;
+        
+        _task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (!weakSelf.isCancelled && completionHandler) {
+                completionHandler(data, response, error);
+            }
+            [weakSelf completeOperation];
+        }];
+    }
+    return self;
+}
 
 - (instancetype)initWithSession:(NSURLSession *)session URL:(NSURL *)url completionHandler:(void (^)(NSData *data, NSURLResponse *response, NSError *error))completionHandler
 {
