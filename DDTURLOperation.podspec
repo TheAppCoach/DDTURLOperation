@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "DDTURLOperation"
-  s.version          = "1.0.0"
+  s.version          = "1.1.0"
   s.summary          = "A collection of useful network based, NSOperations."
   s.description      = <<-DESC
 						The following Operations are provided
